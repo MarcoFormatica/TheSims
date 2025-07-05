@@ -1,10 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
 using UnityEngine.Networking;
+
+[Serializable]
+public class SaveFile
+{
+    public List<FurnitureDescriptor> furnitures;
+}
+
+[Serializable]
+public class FurnitureDescriptor
+{
+    public string assetLabelString;
+    public Vector3 position;
+}
 
 [Serializable]
 public class FurnitureData
@@ -30,6 +44,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //   PlayerPrefs.SetString("Poesia", "Nel mezzo del cammin di nostra vita");
+        //  PlayerPrefs.Save();
+
+       // Debug.Log(PlayerPrefs.GetString("Poesia"));
+
         /*
 #if UNITY_EDITOR
         FurnitureDatabase fd = new FurnitureDatabase();
@@ -113,8 +132,34 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            SaveWorld();
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            LoadWorld();
+        }
+
 
     }
+
+    private void LoadWorld()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void SaveWorld()
+    {
+        List<Furniture> furnitureList = FindObjectsOfType<Furniture>().ToList();
+        SaveFile saveFile = new SaveFile();
+        saveFile.furnitures = furnitureList.Select(f => f.GetFurnitureDescriptor()).ToList();
+
+
+
+    }
+
     public void Select(Furniture furniture)
     {
         if (selectedFurniture != null) { Deselect(); }
@@ -130,7 +175,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnFurniture(string furnitureAssetLabelString, UnityAction<Furniture> OnFurnitureSpawned)
     {
-       Addressables.InstantiateAsync(furnitureAssetLabelString).Completed += (asyncOperationResult) => { OnFurnitureSpawned.Invoke(asyncOperationResult.Result.GetComponent<Furniture>());  };
+       Addressables.InstantiateAsync(furnitureAssetLabelString).Completed += (asyncOperationResult) => { asyncOperationResult.Result.GetComponent<Furniture>().assetLabelString = furnitureAssetLabelString; OnFurnitureSpawned.Invoke(asyncOperationResult.Result.GetComponent<Furniture>());  };
     }
 
 

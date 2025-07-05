@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Furniture : MonoBehaviour
 {
+    public string assetLabelString;
+
     internal void SetSelection(bool v)
     {
         GetComponent<Collider>().enabled = !v;
@@ -22,4 +24,8 @@ public class Furniture : MonoBehaviour
     {
         
     }
+
+    public FurnitureDescriptor GetFurnitureDescriptor()
+    {
+        return new FurnitureDescriptor() { assetLabelString = this.assetLabelString, position = transform.position };
 }
