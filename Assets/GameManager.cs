@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 [Serializable]
 public class FurnitureData
@@ -28,14 +30,22 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        /*
+#if UNITY_EDITOR
+        FurnitureDatabase fd = new FurnitureDatabase();
+        fd.database = furnitureDatabase;
+        Debug.Log(JsonUtility.ToJson(fd));
+        UnityEditor.EditorGUIUtility.systemCopyBuffer = JsonUtility.ToJson(fd);
+#endif
+        */
         myCamera = Camera.main;
         Addressables.InitializeAsync().Completed += AddressablesInitializationCompleted;
     }
 
     private void AddressablesInitializationCompleted(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> obj)
     {
-        InitializeHorizontalBar();
+        // InitializeHorizontalBar();
+        StartCoroutine(GetJsonDatabase());
     }
 
     public void InitializeHorizontalBar()
@@ -46,6 +56,24 @@ public class GameManager : MonoBehaviour
             spawnedFurnitureIcon.InitializeFurnitureIcon(furnitureData, this);
         }
     }
+
+    IEnumerator GetJsonDatabase()
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get("https://ilblogdimarco.altervista.org/furnitureDatabase.html"))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    Debug.Log(webRequest.downloadHandler.text);
+                    furnitureDatabase = JsonUtility.FromJson<FurnitureDatabase>(webRequest.downloadHandler.text).database;
+                    InitializeHorizontalBar();
+                    break;
+            }
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
