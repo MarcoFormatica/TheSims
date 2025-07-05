@@ -17,7 +17,7 @@ MonoBehaviour:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -35,10 +35,10 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 2fc0b26712d5ff546a508925eb04e613
   m_RemoteCatalogLoadPath:
-    m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+    m_Id: 62927c1f7576b9749a67aeafcde0f249
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9631a8bf60be5504995010b41689e628, type: 2}
   - {fileID: 11400000, guid: fc9fd25c1fc9fe340903f48c15fa127f, type: 2}
   - {fileID: 11400000, guid: 1ad3684ecf6fa424b9e4ce6863bf4632, type: 2}
+  - {fileID: 11400000, guid: 8c7ebc2d78b460d4ba602d0b53b05ae7, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -69,7 +70,7 @@ MonoBehaviour:
       - m_Id: 2fc0b26712d5ff546a508925eb04e613
         m_Value: ServerData/[BuildTarget]
       - m_Id: 62927c1f7576b9749a67aeafcde0f249
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: https://ilblogdimarco.altervista.org/[BuildTarget]
     m_ProfileEntryNames:
     - m_Id: 35193a8f15adfa449996daa8c35dc279
       m_Name: BuildTarget
@@ -94,6 +95,7 @@ MonoBehaviour:
     - Cube
     - Sphere
     - Capsule
+    - Armadio
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 3da5db8f6309592499497251fec31e1e, type: 2}

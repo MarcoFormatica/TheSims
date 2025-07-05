@@ -47,16 +47,16 @@ public class GameManager : MonoBehaviour
         //   PlayerPrefs.SetString("Poesia", "Nel mezzo del cammin di nostra vita");
         //  PlayerPrefs.Save();
 
-       // Debug.Log(PlayerPrefs.GetString("Poesia"));
+        // Debug.Log(PlayerPrefs.GetString("Poesia"));
 
-        /*
+        /*   */
 #if UNITY_EDITOR
         FurnitureDatabase fd = new FurnitureDatabase();
         fd.database = furnitureDatabase;
         Debug.Log(JsonUtility.ToJson(fd));
         UnityEditor.EditorGUIUtility.systemCopyBuffer = JsonUtility.ToJson(fd);
 #endif
-        */
+     
         myCamera = Camera.main;
         Addressables.InitializeAsync().Completed += AddressablesInitializationCompleted;
     }
@@ -147,7 +147,25 @@ public class GameManager : MonoBehaviour
 
     private void LoadWorld()
     {
-        throw new NotImplementedException();
+        if (PlayerPrefs.HasKey("Salvataggio"))
+        {
+            DestroyAllFurnitures();
+
+            string salvataggioJson = PlayerPrefs.GetString("Salvataggio");
+            SaveFile saveFile = JsonUtility.FromJson<SaveFile>(salvataggioJson);
+            foreach(FurnitureDescriptor furnitureDescriptor in saveFile.furnitures)
+            {
+                SpawnFurniture(furnitureDescriptor.assetLabelString, (Furniture spawnedFurniture) => { spawnedFurniture.transform.position = furnitureDescriptor.position; });
+            }
+        }
+    }
+
+    private void DestroyAllFurnitures()
+    {
+        foreach(Furniture furniture in FindObjectsOfType<Furniture>())
+        {
+            Destroy(furniture.gameObject);
+        }
     }
 
     private void SaveWorld()
@@ -155,8 +173,9 @@ public class GameManager : MonoBehaviour
         List<Furniture> furnitureList = FindObjectsOfType<Furniture>().ToList();
         SaveFile saveFile = new SaveFile();
         saveFile.furnitures = furnitureList.Select(f => f.GetFurnitureDescriptor()).ToList();
-
-
+        PlayerPrefs.SetString("Salvataggio", JsonUtility.ToJson(saveFile));
+        Debug.Log(JsonUtility.ToJson(saveFile));
+        PlayerPrefs.Save();
 
     }
 

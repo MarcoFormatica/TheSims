@@ -707,8 +707,10 @@ MonoBehaviour:
     thumbnailUrl: https://ilblogdimarco.altervista.org/Thumbnails/CylinderFurniture.png
   - assetLabelString: Sphere
     thumbnailUrl: https://ilblogdimarco.altervista.org/Thumbnails/SphereFurniture.png
-  - assetLabelString: Car
-    thumbnailUrl: https://ilblogdimarco.altervista.org/Thumbnails/Car.png
+  - assetLabelString: Capsule
+    thumbnailUrl: https://ilblogdimarco.altervista.org/Thumbnails/Capsule.png
+  - assetLabelString: Armadio
+    thumbnailUrl: https://ilblogdimarco.altervista.org/Thumbnails/Armadio.png
   myCamera: {fileID: 0}
   selectedFurniture: {fileID: 0}
   horizontalBar: {fileID: 97217833}

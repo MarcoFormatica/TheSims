@@ -16,16 +16,18 @@ public class Furniture : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public FurnitureDescriptor GetFurnitureDescriptor()
     {
         return new FurnitureDescriptor() { assetLabelString = this.assetLabelString, position = transform.position };
+    }
 }
+
